@@ -32,12 +32,45 @@ describe('ScoringService', () => {
 
     });
     describe('calculateOutScore', () => {
-
+        it('calculate Out Score Correctly', () => {
+            let par = 72;
+            let playerScores = Array(18).fill(3, 0, 18);
+            let scoreRelativeToPar = scoringService.calculateScoreRelativeToPar(par, playerScores);
+            expect(scoreRelativeToPar).toEqual(-18);
+        });
+        it('returns a number', () => {
+            let par = 72;
+            let playerScores = Array(18).fill(3, 0, 18);
+            let scoreRelativeToPar = scoringService.calculateScoreRelativeToPar(par, playerScores);
+            expect(scoreRelativeToPar).toEqual(-18);
+        });
     });
     describe('calculateInScore', () => {
-
+        it('calculate in score correctly correctly', () => {
+            let par = 72;
+            let playerScores = Array(18).fill(3, 0, 18);
+            let scoreRelativeToPar = scoringService.calculateScoreRelativeToPar(par, playerScores);
+            expect(scoreRelativeToPar).toEqual(-18);
+        });
+        it('returns a number', () => {
+            let par = 72;
+            let playerScores = Array(18).fill(3, 0, 18);
+            let scoreRelativeToPar = scoringService.calculateScoreRelativeToPar(par, playerScores);
+            expect(scoreRelativeToPar).toEqual(-18);
+        });
     });
     describe('calculateTotalScore', () => {
-
+        it('calculate total score correctly', () => {
+            let par = 72;
+            let playerScores = Array(18).fill(3, 0, 18);
+            let scoreRelativeToPar = scoringService.calculateScoreRelativeToPar(par, playerScores);
+            expect(scoreRelativeToPar).toEqual(-18);
+        });
+        it('returns a number', () => {
+            let par = 72;
+            let playerScores = Array(18).fill(3, 0, 18);
+            let scoreRelativeToPar = scoringService.calculateScoreRelativeToPar(par, playerScores);
+            expect(scoreRelativeToPar).toEqual(-18);
+        });
     });
 });
