@@ -2,68 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Golf</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.js"
-            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-            crossorigin="anonymous"></script>
-    <script src="js/scripts.js" defer></script>
-    <style>
-        html, body{
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        .modal{
-            position: absolute;
-            background: rgba(0,0,0, 0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-        }
-        .content{
-            filter: blur(4px);
-        }
-        .panel{
-            background-color: #FFFFFF;
-            border-radius: 4px;
-            width: 300px;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .card{
-            display: flex;
-        }
-        .column{
-            display: flex;
-            flex-direction: column;
-        }
-        .hole{
-            width: 50px;
-        }
-    </style>
+    <title>API Request</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/main.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<select id="courseSelect" onchange="loadCourse(this.value)">
+    <option>Select a Course</option>
+</select>
+<select id="teeSelect">
 
-    <div class="modal">
-        <div class="panel">
-            <span>Number of Players:</span>
-            <input type="number" class="numinput" placeholder="Number of players" max=10>
-            <button onclick="addPlayers()">GO</button>
-        </div>
-    </div>
-    <div class="content">
-        <div>Lot's of random text goes here: </div>
-    </div>
-    <div class="card">
+</select>
+<div class="card">
 
-    </div>
-
+</div>
 </body>
 </html>

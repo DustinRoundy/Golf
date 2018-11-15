@@ -1,0 +1,12 @@
+.card {
+    display: flex;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.hole {
+    width: 50px;
+}
