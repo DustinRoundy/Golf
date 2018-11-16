@@ -3,6 +3,7 @@
 let courseCollection;
 let numPlayers = 5;
 let numHoles = 18;
+let globalTee;
 
 (function () {
     loadDoc();
@@ -35,23 +36,32 @@ function loadCourse(courseid) {
         if(this.readyState == 4 && this.status == 200) {
             myCourse = JSON.parse(this.responseText);
             console.log(myCourse);
-
             let teeArray = myCourse.data.holes[0].teeBoxes;
             for(let i = 0; i < teeArray.length; i++) {
                 $('#teeSelect').append('<option value="' + i + '">' + teeArray[i].teeType + '</option>')
             }
-            buildCard();
+
         }
     };
     xhttp.open('GET', 'https://golf-courses-api.herokuapp.com/courses/'+courseid, true);
     xhttp.send();
 }
 
+function getTee(id){
+    globalTee = id;
+    buildCard();
+}
+
 function buildCard() {
+    $('.card').append(`<div class="column" id="info"><div>Hole:</div><div>Par:</div><div>Handicap:</div></div>`);
+    for(let p = 1; p <= numPlayers; p++){
+        $('#info').append(`<div class="">Player ${p}</div>`)
+    }
     for(let i = 1; i <= numHoles; i++) {
-        $('.card').append('<div id="col' + i +'" class="column">' + i + '</div>')
+        $('.card').append(`<div id="col${i}" class="column"><div class="hole">${i}</div><div class="hole">${myCourse.data.holes[i - 1].teeBoxes[globalTee].yards}</div><div class="hole">${myCourse.data.holes[i - 1].teeBoxes[globalTee].hcp}</div></div>`)
     }
     addHoles();
+    
 }
 
 function addHoles() {

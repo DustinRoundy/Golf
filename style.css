@@ -5,8 +5,9 @@
 .column {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .hole {
-    width: 50px;
+    width: 25px;
 }
