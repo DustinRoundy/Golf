@@ -15,7 +15,7 @@
     margin: 0;
     text-align: center;
     padding: 4px;
-    
+
 }
 .infoEle {
     margin: 0;
@@ -23,8 +23,35 @@
     padding: 4px;
 }
 .top{
-    margin-top: 127%;
+    width: auto;
+    border-bottom: #2a2a2a solid 1px;
+    padding-bottom: 8px;
+    text-align: center;
 
+}
+.top1{
+    width: auto;
+    border-bottom: #2a2a2a solid 1px;
+    padding-bottom: 8px;
+    margin-top: 28px;
+    text-align: center;
+}
+.top2{
+    margin-top: 86px;
+}
+.score{
+    width: auto;
+}
+.score, input{
+    width: 86px;
+    padding: 4px;
+    border-bottom: #2a2a2a solid 1px;
+    text-align: center;
+}
+.tpar{
+    padding-top: 18px;
+    padding-bottom: 19px;
+    border-bottom: #2a2a2a solid 1px;
 }
 input{
     border: none;

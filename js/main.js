@@ -53,25 +53,33 @@ function getTee(id){
 }
 
 function buildCard() {
-    $('.card').append(`<div class="column" id="info"><div class="infoEle">Hole:</div><div class="infoEle">Par:</div><div class="infoEle">Handicap:</div></div>`);
+    $('.card').html("");
+    let totalPar = 0;
+    let totalYard = 0;
+    $('.card').append(`<div class="column" id="info"><div class="infoEle">Hole:</div><div class="infoEle">Par:</div><div class="infoEle">Yardage:</div><div class="infoEle">Handicap:</div></div>`);
     for(let p = 1; p <= numPlayers; p++){
         $('#info').append(`<div class="infoEle">Player ${p}</div>`)
     }
     for(let i = 1; i <= numHoles; i++) {
-        $('.card').append(`<div id="col${i}" class="column"><div class="hole">${i}</div><div class="hole">${myCourse.data.holes[i - 1].teeBoxes[globalTee].yards}</div><div class="hole">${myCourse.data.holes[i - 1].teeBoxes[globalTee].hcp}</div></div>`)
+        let hcp = myCourse.data.holes[i - 1].teeBoxes[globalTee].hcp;
+        let yards = myCourse.data.holes[i - 1].teeBoxes[globalTee].yards;
+        let par = myCourse.data.holes[i - 1].teeBoxes[globalTee].par;
+        totalPar += par;
+        totalYard += yards;
+        $('.card').append(`<div id="col${i}" class="column"><div class="hole">${i}</div><div class="hole par">${par}</div><div class="hole">${yards}</div><div class="hole">${hcp}</div></div>`)
     }
-    $('.card').append(`<div class="column" id="outScore"><div class="top">Out</div><div>Score</div></div>`);
-    $('.card').append(`<div class="column" id="inScore"><div class="top">In</div><div>Score</div></div>`);
-    $('.card').append(`<div class="column" id="totalScore"><div class="top">Total</div><div>Score</div></div>`);
+    $('.card').append(`<div class="column" id="outScore"><div class="top1">Total Par:</div><div class="top">Total Yardage:</div><div class="top">Out Score</div><div></div></div>`);
+    $('.card').append(`<div class="column" id="inScore"><div class="top1">${totalPar}</div><div class="top">${totalYard}</div><div class="top">In Score</div></div>`);
+    $('.card').append(`<div class="column" id="totalScore"><div class="top2 top">Total Score</div></div>`);
     addHoles();
 
 }
 
 function addHoles() {
     for(let p = 1; p <= numPlayers; p++) {
-        $('#outScore').append(`<input class="hole" type="text" id="outScore_${p}" readonly>`);
-        $('#inScore').append(`<input class="hole" type="text" id="inScore_${p}" readonly >`);
-        $('#totalScore').append(`<input class="hole" type="text" id="totalScore_${p}" readonly>`);
+        $('#outScore').append(`<input class="score" type="text" id="outScore_${p}" readonly>`);
+        $('#inScore').append(`<input class="score" type="text" id="inScore_${p}" readonly >`);
+        $('#totalScore').append(`<input class="score" type="text" id="totalScore_${p}" readonly>`);
         for(let h = 1; h <= numHoles; h++) {
             $('#col' + h).append(`<input class="hole" type="text" id="p${p}h${h}" onchange="addScore(${p})">`);
         }
@@ -79,20 +87,33 @@ function addHoles() {
 }
 
 function addScore(myId) {
-   let  myScore = 0;
+   let  total = 0;
+   let inScore = 0;
+   let outScore = 0;
     // Parse the player number out of the id, make that p
-    for(let i = 1; i <= 18; i ++) {
+    for(let i = 1; i <= 18; i++) {
         // console.log(Number($('#p' + myId + 'h' + i).val()));
         let item = $('#p' + myId + 'h' + i).val();
         let scoreItem = Number(item);
         console.log(scoreItem);
-        myScore += scoreItem;
-        if(i <= 9){
-            $(`#outScore_${myId}`).val(myScore);
-        } else if (i >= 10){
-            $(`#inScore_${myId}`).val(myScore);
-        }
-        $(`#totalScore_${myId}`).val(myScore);
+        total += scoreItem;
+        $(`#totalScore_${myId}`).val(total);
+    }
+    for(let i = 1; i <= 9; i++) {
+        // console.log(Number($('#p' + myId + 'h' + i).val()));
+        let item = $('#p' + myId + 'h' + i).val();
+        let scoreItem = Number(item);
+        console.log(scoreItem);
+        outScore += scoreItem;
+        $(`#outScore_${myId}`).val(outScore);
+    }
+    for(let i = 10; i <= 18; i++) {
+        // console.log(Number($('#p' + myId + 'h' + i).val()));
+        let item = $('#p' + myId + 'h' + i).val();
+        let scoreItem = Number(item);
+        console.log(scoreItem);
+        inScore += scoreItem;
+        $(`#inScore_${myId}`).val(inScore);
     }
     console.log(myScore);
     // return myScore;
