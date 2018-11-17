@@ -81,12 +81,17 @@ function addHoles() {
         $('#inScore').append(`<input class="score" type="text" id="inScore_${p}" readonly >`);
         $('#totalScore').append(`<input class="score" type="text" id="totalScore_${p}" readonly>`);
         for(let h = 1; h <= numHoles; h++) {
-            $('#col' + h).append(`<input class="hole" type="text" id="p${p}h${h}" onchange="addScore(${p})">`);
+            if(h === 18){
+                $('#col' + h).append(`<input class="hole" type="text" id="p${p}h${h}" onchange="addScore(${p},${h});">`);
+            } else {
+                $('#col' + h).append(`<input class="hole" type="text" id="p${p}h${h}" onchange="addScore(${p}, ${h})">`);
+            }
+
         }
     }
 }
 
-function addScore(myId) {
+function addScore(myId, hole) {
    let  total = 0;
    let inScore = 0;
    let outScore = 0;
@@ -115,7 +120,9 @@ function addScore(myId) {
         inScore += scoreItem;
         $(`#inScore_${myId}`).val(inScore);
     }
-    console.log(myScore);
+    if(hole == 18){
+        alert(`Player ${myId} has completed the course`);
+    }
     // return myScore;
 
 }
@@ -133,4 +140,7 @@ function calcScore(){
             console.log("ok!")
         }
     })
+}
+function final(user){
+    alert(`Player ${user} is finished`)
 }
