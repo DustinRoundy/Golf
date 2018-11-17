@@ -1,7 +1,7 @@
 // Get Courses
 
 let courseCollection;
-let numPlayers = 5;
+let numPlayers;
 let numHoles = 18;
 let globalTee;
 
@@ -49,9 +49,13 @@ function loadCourse(courseid) {
 
 function getTee(id){
     globalTee = id;
-    buildCard();
+    // buildCard();
 }
-
+function addPlayers(num){
+    numPlayers = num;
+    buildCard();
+    $.modal.close();
+}
 function buildCard() {
     $('.card').html("");
     let totalPar = 0;
