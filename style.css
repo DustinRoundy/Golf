@@ -6,8 +6,26 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-left: #2a2a2a solid 1px;
 }
 
 .hole {
     width: 25px;
+    border-bottom: #2a2a2a solid 1px;
+    margin: 0;
+    text-align: center;
+    padding: 4px;
+    
+}
+.infoEle {
+    margin: 0;
+    border-bottom: #2a2a2a solid 1px;
+    padding: 4px;
+}
+.top{
+    margin-top: 127%;
+
+}
+input{
+    border: none;
 }

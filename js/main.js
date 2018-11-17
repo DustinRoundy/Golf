@@ -53,33 +53,63 @@ function getTee(id){
 }
 
 function buildCard() {
-    $('.card').append(`<div class="column" id="info"><div>Hole:</div><div>Par:</div><div>Handicap:</div></div>`);
+    $('.card').append(`<div class="column" id="info"><div class="infoEle">Hole:</div><div class="infoEle">Par:</div><div class="infoEle">Handicap:</div></div>`);
     for(let p = 1; p <= numPlayers; p++){
-        $('#info').append(`<div class="">Player ${p}</div>`)
+        $('#info').append(`<div class="infoEle">Player ${p}</div>`)
     }
     for(let i = 1; i <= numHoles; i++) {
         $('.card').append(`<div id="col${i}" class="column"><div class="hole">${i}</div><div class="hole">${myCourse.data.holes[i - 1].teeBoxes[globalTee].yards}</div><div class="hole">${myCourse.data.holes[i - 1].teeBoxes[globalTee].hcp}</div></div>`)
     }
+    $('.card').append(`<div class="column" id="outScore"><div class="top">Out</div><div>Score</div></div>`);
+    $('.card').append(`<div class="column" id="inScore"><div class="top">In</div><div>Score</div></div>`);
+    $('.card').append(`<div class="column" id="totalScore"><div class="top">Total</div><div>Score</div></div>`);
     addHoles();
-    
+
 }
 
 function addHoles() {
     for(let p = 1; p <= numPlayers; p++) {
+        $('#outScore').append(`<input class="hole" type="text" id="outScore_${p}" readonly>`);
+        $('#inScore').append(`<input class="hole" type="text" id="inScore_${p}" readonly >`);
+        $('#totalScore').append(`<input class="hole" type="text" id="totalScore_${p}" readonly>`);
         for(let h = 1; h <= numHoles; h++) {
-            $('#col' + h).append('<input class="hole" type="text" id="p' + p + 'h' + h + '">');
+            $('#col' + h).append(`<input class="hole" type="text" id="p${p}h${h}" onchange="addScore(${p})">`);
         }
     }
 }
 
 function addScore(myId) {
-    let myScore = 0;
+   let  myScore = 0;
     // Parse the player number out of the id, make that p
-    for(let i = 0; i < 18; i ++) {
-        let scoreItem = $('#p' + p + 'h' + i).val();
+    for(let i = 1; i <= 18; i ++) {
+        // console.log(Number($('#p' + myId + 'h' + i).val()));
+        let item = $('#p' + myId + 'h' + i).val();
+        let scoreItem = Number(item);
+        console.log(scoreItem);
         myScore += scoreItem;
+        if(i <= 9){
+            $(`#outScore_${myId}`).val(myScore);
+        } else if (i >= 10){
+            $(`#inScore_${myId}`).val(myScore);
+        }
+        $(`#totalScore_${myId}`).val(myScore);
     }
+    console.log(myScore);
+    // return myScore;
 
-    return myScore;
+}
 
+function calcScore(){
+    console.log("calc score");
+    let $inputs = $('.hole :input');
+    console.log($inputs);
+    $inputs.each(function() {
+        if(jQuery.type(this.val() != "number")) {
+            console.log("error, input is not a number!");
+
+        }
+        else{
+            console.log("ok!")
+        }
+    })
 }
