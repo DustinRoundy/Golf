@@ -4,6 +4,7 @@ let courseCollection;
 let numPlayers;
 let numHoles = 18;
 let globalTee;
+let totalPar;
 
 (function () {
     loadDoc();
@@ -19,6 +20,7 @@ function loadDoc() {
             for (let i = 0; i < courseCollection.courses.length; i++) {
                 $('#courseSelect').append('<option value="' + courseCollection.courses[i].id + '">' + courseCollection.courses[i].name + '</option>')
             }
+            $('#setup').modal();
         }
     };
     xhttp.open('GET', 'https://golf-courses-api.herokuapp.com/courses', true);
@@ -58,7 +60,7 @@ function addPlayers(num){
 }
 function buildCard() {
     $('.card').html("");
-    let totalPar = 0;
+    totalPar = 0;
     let totalYard = 0;
     $('.card').append(`<div class="column" id="info"><div class="infoEle">Hole:</div><div class="infoEle">Par:</div><div class="infoEle">Yardage:</div><div class="infoEle">Handicap:</div></div>`);
     for(let p = 1; p <= numPlayers; p++){
@@ -70,10 +72,10 @@ function buildCard() {
         let par = myCourse.data.holes[i - 1].teeBoxes[globalTee].par;
         totalPar += par;
         totalYard += yards;
-        $('.card').append(`<div id="col${i}" class="column"><div class="hole">${i}</div><div class="hole par">${par}</div><div class="hole">${yards}</div><div class="hole">${hcp}</div></div>`)
+        $('.card').append(`<div id="col${i}" class="column"><div class="hole">${i}</div><div class="hole par" >${par}</div><div class="hole">${yards}</div><div class="hole">${hcp}</div></div>`)
     }
     $('.card').append(`<div class="column" id="outScore"><div class="top1">Total Par:</div><div class="top">Total Yardage:</div><div class="top">Out Score</div><div></div></div>`);
-    $('.card').append(`<div class="column" id="inScore"><div class="top1">${totalPar}</div><div class="top">${totalYard}</div><div class="top">In Score</div></div>`);
+    $('.card').append(`<div class="column" id="inScore"><div class="top1" id="coursePar">${totalPar}</div><div class="top">${totalYard}</div><div class="top">In Score</div></div>`);
     $('.card').append(`<div class="column" id="totalScore"><div class="top2 top">Total Score</div></div>`);
     addHoles();
 
@@ -124,8 +126,27 @@ function addScore(myId, hole) {
         inScore += scoreItem;
         $(`#inScore_${myId}`).val(inScore);
     }
-    if(hole == 18){
-        alert(`Player ${myId} has completed the course`);
+    if(hole == 18 && myId == numPlayers){
+        for(i = 1; i <= numPlayers; i++){
+            let pScore = $('#totalScore_' + i).val();
+            let pPar = totalPar - pScore;
+            console.log("calcualte score");
+            console.log(totalPar);
+            console.log(pScore);
+            console.log(pPar);
+            if(pPar > 0 && pPar < totalPar){
+                $('#ex1').append(`<h3>Good Job Player ${i} you were ${pPar} below par!</h3>`);
+            }
+            else if (pPar == totalPar) {
+                $('#ex1').append(`<h3>Good Job Player ${i} you were right on Par!!</h3>`);
+            }
+            else{
+                pPar = Math.abs(pPar);
+                $('#ex1').append(`<h3>Better luck next time Player ${i}, you were ${pPar} over par!</h3>`);
+            }
+
+        }
+        $('#ex1').modal();
     }
     // return myScore;
 
